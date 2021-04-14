@@ -23,6 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['auth','admin']],function (){
     Route::get('dashboard','DashboardController@index');
+    Route::get('categories','BlogCategoryController@index');
 });
 Route::group(['prefix'=>'student','namespace'=>'Student','middleware'=>['auth','student']],function (){
     Route::get('dashboard','StudentController@index');
