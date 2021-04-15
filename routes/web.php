@@ -24,6 +24,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['auth','admin']],function (){
     Route::get('dashboard','DashboardController@index');
     Route::get('categories','BlogCategoryController@index');
+    Route::post('category/store','BlogCategoryController@store');
+    Route::any('category/active/{id}','BlogCategoryController@active');
+    Route::any('category/inactive/{id}','BlogCategoryController@inactive');
+    Route::any('category/delete/{id}','BlogCategoryController@destroy');
 });
 Route::group(['prefix'=>'student','namespace'=>'Student','middleware'=>['auth','student']],function (){
     Route::get('dashboard','StudentController@index');
