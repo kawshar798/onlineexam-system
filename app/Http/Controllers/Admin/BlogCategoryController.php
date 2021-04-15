@@ -19,13 +19,17 @@ class BlogCategoryController extends Controller
         return view('admin.blog.category',compact('categories'));
     }
 
-    public function  store(CategoryRequest $request){
+    public function  store(Request $request){
 
         DB::beginTransaction();
         try {
             if($request->id){
                 $category = Category::find($request->id);
             }else{
+                $request->validate( [
+                    'name' => 'required|unique:categories|max:255',
+                ] );
+
                 $category = new Category();
             }
 
@@ -77,11 +81,8 @@ class BlogCategoryController extends Controller
     }
 
     public function destroy( $id ) {
-        $brand = Category::find( $id );
-        if (file_exists($brand->image)) {
-            unlink( $brand->image );
-        }
-        $brand->delete();
+        $category = Category::find( $id );
+        $category->delete();
         $output = ['success' => true,
             'messege'            => "Category Delete success",
         ];
