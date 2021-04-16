@@ -15,6 +15,11 @@ class CreateOnlineVideoLecturesTable extends Migration
     {
         Schema::create('online_video_lectures', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('link');
+            $table->string('thumbnail')->nullable();
+            $table->enum('status',['Active','Inactive']);
+            $table->string('ip');
             $table->timestamps();
         });
     }

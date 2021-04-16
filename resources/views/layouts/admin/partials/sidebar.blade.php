@@ -10,6 +10,11 @@
                     <li class="nav-item ">
                         <a class="nav-link {{ (request()->is('admin/dashboard')) ? 'active' : '' }} " href="{{url('/admin/dashboard')}}">Dashboard</a>
                     </li>
+
+                    <li class="nav-item ">
+                        <a class="nav-link {{ (request()->is('admin/teams')) ? 'active' : '' }} " href="{{url('/admin/teams')}}">Team</a>
+                    </li>
+
                     <li class="nav-item ">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="{{ (request()->is('admin/categories')) || (request()->is('admin/posts'))  ? false : true }}" data-target="#submenu-1" aria-controls="submenu-1"><i class="fab fa-blogger"></i>Blog <span class="badge badge-success">6</span></a>
                         <div id="submenu-1" class="collapse submenu {{ (request()->is('admin/categories')) || (request()->is('admin/posts')) ? 'show' : '' }}" style="">
