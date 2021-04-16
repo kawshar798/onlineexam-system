@@ -11,7 +11,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 >Team List</h5>    <a href="javascript:void(0)" class="btn btn-success mb-2" id="create-new-category">Add Team</a>
+                    <h5 >Video  Lecture</h5>    <a href="javascript:void(0)" class="btn btn-success mb-2" id="create-new-category"> Add Video  Lecture</a>
                 </div>
 
                 <div class="card-body">
@@ -21,28 +21,26 @@
                             <tr>
 
                                 <th>No</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Facebook Link</th>
-                                <th>photo</th>
+                                <th>Video Title</th>
+                                <th>Video  Link</th>
+                                <th>Thumbnail</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($teams as $index=>$team)
+                            @foreach($videoLectures as $index=>$item)
                                 <tr>
                                     <td>{{++$index}}</td>
-                                    <td>{{$team->name}}</td>
-                                    <td>{{$team->email}}</td>
+                                    <td>{{$item->title}}</td>
                                     <td>
-                                        <a href="{{$team->facebook}}">Facebook</a>
+                                        <a href="{{$item->link}}">Link</a>
                                     </td>
                                     <td>
-                                        <img src="{{asset($team->photo)}}" style="width:80px" alt="iamge"/>
+                                        <img src="{{asset($item->thumbnail)}}" style="width:80px" alt="iamge"/>
                                     </td>
                                     <td>
-                                    @if($team->status == 'Inactive')
+                                    @if($item->status == 'Inactive')
                                         <span class="badge badge-warning ">Inactive</span>
                                     @else
                                         <span class="badge badge-success">Active</span>
@@ -50,23 +48,22 @@
                                         </td>
                                         <td>
                                             <button type="button"
-                                                    data-name="{{$team->name}}"
-                                                    data-email="{{$team->email}}"
-                                                    data-facebook="{{$team->facebook}}"
-                                                    data-image="{{$team->photo}}"
-                                                    data-id="{{$team->id}}"
+                                                    data-title="{{$item->title}}"
+                                                    data-link="{{$item->link}}"
+                                                    data-image="{{$item->thumbnail}}"
+                                                    data-id="{{$item->id}}"
                                                     class="btn btn-primary m-3 edit-btn" data-toggle="modal" data-target="#addFees1">
                                                 Edit
                                             </button>
-                                            <button  data-success_url="{{url('admin/teams')}}" data-token="{{ csrf_token() }}" data-url="{{ url('admin/team/delete', $team->id) }}" class="btn btn-danger delete_brand"
-                                                     data-id="{{ $team->id }}"  title="Delete">Delete</button>
+                                            <button  data-success_url="{{url('admin/video-lectures')}}" data-token="{{ csrf_token() }}" data-url="{{ url('admin/video-lecture/delete', $item->id) }}" class="btn btn-danger delete_brand"
+                                                     data-id="{{ $item->id }}"  title="Delete">Delete</button>
 
-                                            @if($team->status == 'Inactive')
-                                                <button  data-success_url="{{url('admin/teams')}}" data-token="{{ csrf_token() }}" data-url="{{ url('admin/team/active', $team->id) }}" class="btn btn-success active_brand"
-                                                         data-id="{{ $team->id }}"  title="Active">Active</button>
+                                            @if($item->status == 'Inactive')
+                                                <button  data-success_url="{{url('admin/video-lectures')}}" data-token="{{ csrf_token() }}" data-url="{{ url('admin/video-lecture/active', $item->id) }}" class="btn btn-success active_brand"
+                                                         data-id="{{ $item->id }}"  title="Active">Active</button>
                                             @else
-                                                <button  data-success_url="{{url('admin/teams')}}" data-token="{{ csrf_token() }}" data-url="{{ url('admin/team/inactive', $team->id) }}" class="btn btn-warning inactive_brand"
-                                                         data-id="{{ $team->id }}"  title="InActive">Inactive</button>
+                                                <button  data-success_url="{{url('admin/video-lectures')}}" data-token="{{ csrf_token() }}" data-url="{{ url('admin/video-lecture/inactive', $item->id) }}" class="btn btn-warning inactive_brand"
+                                                         data-id="{{ $item->id }}"  title="InActive">Inactive</button>
                                             @endif
                                         </td>
                                 </tr>
@@ -105,17 +102,17 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <form class="ajax-form-submit"   id="k"  method="POST">
-                    <input type="hidden" class="success_url" value="{{url('admin/teams')}}">
-                    <input type="hidden" class="submit_url" value="{{url('admin/team/store')}}">
+                    <input type="hidden" class="success_url" value="{{url('admin/video-lecture')}}">
+                    <input type="hidden" class="submit_url" value="{{url('admin/video-lecture/store')}}">
                     <input type="hidden" class="method" value="POST">
                     <input type="hidden" class="id" name="id" value="">
                 @csrf
                 <!-- Modal body -->
                     <div class="modal-body">
                         <div class="form-group row">
-                            <label for="example-email-input" class="col-sm-3 col-form-label">Name</label>
+                            <label for="example-email-input" class="col-sm-3 col-form-label">Title</label>
                             <div class="col-sm-9">
-                                <input class="form-control name_modal" type="text" placeholder="Category  Name" name="name" required>
+                                <input class="form-control title_modal" type="text" placeholder="Video Title" name="title" required>
                                 <span id="msg"></span>
                             </div>
                         </div>
@@ -127,17 +124,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="example-email-input" class="col-sm-3 col-form-label">Email</label>
+                            <label for="example-email-input" class="col-sm-3 col-form-label">Video Link</label>
                             <div class="col-sm-9">
-                                <input class="form-control email_modal" type="text" placeholder="Email  Name" name="email" required>
-                                <span id="msg"></span>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="example-email-input" class="col-sm-3 col-form-label">Facebook Link</label>
-                            <div class="col-sm-9">
-                                <input class="form-control facebook_modal" type="text" placeholder="Facebook  Link" name="facebook" required>
+                                <input class="form-control link_modal" type="text" placeholder="Video Link" name="link" required>
                                 <span id="msg"></span>
                             </div>
                         </div>
@@ -159,9 +148,9 @@
         $(document).ready(function () {
             /*  When user click add user button */
             $('#create-new-category').click(function () {
-                $('#btn-save').html("Add Team Member");
+                $('#btn-save').html("Add  Video  Lecture");
                 $('#k').trigger("reset");
-                $('#modalTitile').html("Add New Team Member");
+                $('#modalTitile').html("Add New Video  Lecture");
                 $('#addCategory').modal('show');
             });
 
@@ -169,23 +158,21 @@
             $('.edit-btn').on('click', function (e) {
                 e.preventDefault();
                 var id        = $(this).data("id");
-                var name    = $(this).data("name");
-                var email    = $(this).data("email");
-                var facebook    = $(this).data("facebook");
+                var title    = $(this).data("title");
+                var link    = $(this).data("link");
                 var image  = $(this).data("image");
-                $('.name_modal').val(name);
-                $('.email_modal').val(email);
-                $('.facebook_modal').val(facebook);
+                $('.title_modal').val(title);
+                $('.link_modal').val(link);
                 $('.id').val(id);
-                var post_image =  "<img src='"+ '{{asset('/')}}'+image+"' height='100' width='100'>";
-                if(post_image){
-                    $("#modal-input-image").html(post_image);
+                var thumbnail =  "<img src='"+ '{{asset('/')}}'+image+"' height='100' width='100'>";
+                if(thumbnail){
+                    $("#modal-input-image").html(thumbnail);
                 }else{
                     $("#modal-input-image").style.display='none';
                 }
                 $('.k').trigger("reset");
-                $('#modalTitile').html("Edit Team Member");
-                $('#btn-save').html("Update Team Member");
+                $('#modalTitile').html("Edit Video  Lecture");
+                $('#btn-save').html("Update Video  Lecture");
                 $('#addCategory').modal('show');
             });
 
@@ -206,7 +193,7 @@
             var fd = new FormData(document.getElementById("k"));
             $.ajax({
                 method: 'POST',
-                url:"{{url('admin/team/store')}}",
+                url:"{{url('admin/video-lecture/store')}}",
                 data:fd,
                 enctype: 'multipart/form-data',
                 processData: false,
