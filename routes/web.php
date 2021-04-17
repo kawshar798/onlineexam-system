@@ -49,6 +49,12 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['auth','admi
     Route::put('video-lecture/inactive/{id}','VideoLectureController@inactive');
     Route::delete('video-lecture/delete/{id}','VideoLectureController@destroy');
 
+    Route::get('services','ServiceController@index');
+    Route::post('service/store','ServiceController@store');
+    Route::put('service/active/{id}','ServiceController@active');
+    Route::put('service/inactive/{id}','ServiceController@inactive');
+    Route::delete('service/delete/{id}','ServiceController@destroy');
+
 });
 Route::group(['prefix'=>'student','namespace'=>'Student','middleware'=>['auth','student']],function (){
     Route::get('dashboard','StudentController@index');
