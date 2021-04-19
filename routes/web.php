@@ -23,6 +23,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['auth','admin']],function (){
     Route::get('dashboard','DashboardController@index');
+
+    Route::get('students','StudentController@index');
+
     Route::get('categories','BlogCategoryController@index');
     Route::post('category/store','BlogCategoryController@store');
     Route::put('category/active/{id}','BlogCategoryController@active');
@@ -54,6 +57,13 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['auth','admi
     Route::put('service/active/{id}','ServiceController@active');
     Route::put('service/inactive/{id}','ServiceController@inactive');
     Route::delete('service/delete/{id}','ServiceController@destroy');
+
+
+    Route::get('pdf-files','PdfFileController@index');
+    Route::post('pdf-file/store','PdfFileController@store');
+    Route::put('pdf-file/active/{id}','PdfFileController@active');
+    Route::put('pdf-file/inactive/{id}','PdfFileController@inactive');
+    Route::delete('pdf-file/delete/{id}','PdfFileController@destroy');
 
 });
 Route::group(['prefix'=>'student','namespace'=>'Student','middleware'=>['auth','student']],function (){
