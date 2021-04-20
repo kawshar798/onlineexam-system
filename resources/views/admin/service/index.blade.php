@@ -1,5 +1,8 @@
 @extends('layouts.admin.app')
-@section('title','Blog Category')
+@section('title','Service')
+{{--Page title--}}
+@section('main_title','Service')
+@section('active_title','Service')
 @push('css')
 
 @endpush

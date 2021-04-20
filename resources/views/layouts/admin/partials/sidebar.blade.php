@@ -12,7 +12,9 @@
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link {{ (request()->is('admin/students')) ? 'active' : '' }} " href="{{url('/admin/students')}}">Students</a>
-
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link {{ (request()->is('admin/about-us')) ? 'active' : '' }} " href="{{url('/admin/about-us')}}">About us</a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link {{ (request()->is('admin/teams')) ? 'active' : '' }} " href="{{url('/admin/teams')}}">Team</a>

@@ -1,5 +1,8 @@
 @extends('layouts.admin.app')
 @section('title','Dashboard')
+{{--Page title--}}
+@section('main_title','Dashboard')
+@section('active_title','Dashboard')
 @section('content')
     <!-- ============================================================== -->
 

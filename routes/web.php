@@ -26,6 +26,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['auth','admi
 
     Route::get('students','StudentController@index');
 
+    Route::any('about-us','AboutusController@index');
+
     Route::get('categories','BlogCategoryController@index');
     Route::post('category/store','BlogCategoryController@store');
     Route::put('category/active/{id}','BlogCategoryController@active');
